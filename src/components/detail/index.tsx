@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import { getDetail } from "../../http";
 import MacheItem from "../../types";
 import styles from './index.module.css'
 
@@ -9,24 +10,13 @@ export default function Deatil() {
     const [macheDeatil, setMacheDeatil] = useState<MacheItem>(Object.create(null))
 
     const fetchDeatil = async () => {
-        return fetch(`/api/v1/machines/${params.id}`, {
-            method: 'get',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(res => {
-            return res.json()
-        }).then(obj => {
-            setMacheDeatil(obj.data)
-        }).catch(err => {
-            console.log(err);
-        })
+        const res = await getDetail(params.id!)
+        setMacheDeatil(res)
     }
 
     useEffect(() => {
         fetchDeatil()
     }, [params.id])
-
 
     return (
         <>

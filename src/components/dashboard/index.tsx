@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getList } from "../../http"
 import MacheItem, { MacheItemStatus } from "../../types"
-import { createChildElementRectMap } from "../../untils/index"
+import { createChildElementRectMap, getTimeStamp } from "../../untils/index"
 import styles from './index.module.css'
 
 export default function DashBoard() {
@@ -16,9 +17,8 @@ export default function DashBoard() {
 
     useLayoutEffect(() => {
         const currentRectMap = createChildElementRectMap(listRef.current);
-        lastRectRef.current.forEach((prevRect, node) => { // Map.prototype.forEach(value,key)
+        lastRectRef.current.forEach((prevRect, node) => {
             const currentRect = currentRectMap.get(node);
-            // Invert
             const invert = {
                 left: prevRect.left - currentRect.left,
                 top: prevRect.top - currentRect.top
@@ -42,7 +42,6 @@ export default function DashBoard() {
 
     const sortByTime = () => {
         setData(prev => {
-            console.log(prev);
             return [...prev.sort((a, b) => getTimeStamp(a.install_date) - getTimeStamp(b.install_date))]
         }
         )
@@ -51,7 +50,6 @@ export default function DashBoard() {
 
     const sortByStatus = () => {
         setData(prev => {
-            console.log(prev);
             return [...prev.sort((a, b) => displayOrderByStatus(a.status) - displayOrderByStatus(b.status))]
         }
         )
@@ -68,23 +66,9 @@ export default function DashBoard() {
         }[status]
     }
 
-    const getTimeStamp = (date: any) => {
-        return new Date(date).getTime();
-    }
-
     const fetchList = async () => {
-        return fetch('/api/v1/machines', {
-            method: 'get',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(res => {
-            return res.json()
-        }).then(obj => {
-            setData(obj.data)
-        }).catch(err => {
-            console.log(err);
-        })
+        const res = await getList()
+        setData(res);
     }
 
     const ClassStatus = (status: MacheItemStatus) => {

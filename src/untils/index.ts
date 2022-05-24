@@ -11,3 +11,6 @@ export const createChildElementRectMap = (nodes: HTMLElement | null | undefined)
 }
 
 
+export const getTimeStamp = (date: any) => {
+    return new Date(date).getTime();
+}
