@@ -1,0 +1,72 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.loading {
+    width: 100%;
+    min-height: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item {
+    display: flex;
+}
+
+.item:hover {
+    cursor:grab;
+    background-color: #2261f33a;
+}
+
+.primaryColor {
+    color: hsla(160, 100%, 37%, 1);
+}
+
+.finshStatus {
+    color:black;
+}
+
+.runningStatus {
+    color:rgb(33, 200, 75);
+}
+
+.repairedStatus{
+    color:rgb(25, 28, 218)
+}
+
+.errorStatus {
+    color:red;
+}
+
+.idleStatus {
+    color:darkgoldenrod
+}
+
+.sortmenu {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.sortButton {
+    display: inline-block;
+    font-size: 14px;
+    color: #fff;
+    padding: 0 5px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    outline: none;
+    border-style: none;
+    background-image: linear-gradient(to right, #2D80FA , #225FF3);
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
